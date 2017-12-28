@@ -15,6 +15,8 @@
 4. Install Vagrant (Packer will output VagrantBox)
 	
 	`choco install vagrant`
+	
+5. Edit vagrant-ssh.bat (create vagrant/.ssh folder under specific user folder)
 
 	
 Run:

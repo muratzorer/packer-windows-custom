@@ -11,7 +11,15 @@
 3. Install VirtualBox
 
 	`choco install virtualbox`
+	
+4. Install Vagrant (Packer will output VagrantBox)
+	
+	`choco install vagrant`
 
+	
+Run:
+
+`packer build -only=virtualbox-iso "D:\GitHub Repositories\packer-windows-custom\windows_2012_r2.json"`
 
 ## Possible Errors
 

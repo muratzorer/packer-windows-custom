@@ -1,0 +1,39 @@
+{
+  "builders": [
+    {
+      "type": "virtualbox-ovf",
+	  "source_path": "{{user `source_path`}}",
+      "headless": "{{user `headless`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "10m",
+      "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\""
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "remote_path": "/tmp/script.bat",
+      "execute_command": "{{.Vars}} cmd /c C:/Windows/Temp/script.bat",
+      "scripts": [
+		"./scripts/install-utils.bat",
+        "./scripts/vm-guest-tools.bat",
+        "./scripts/vagrant-ssh.bat",
+        "./scripts/enable-rdp.bat",
+        "./scripts/disable-auto-logon.bat"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "keep_input_artifact": false,
+      "output": "windows_2012_r2_{{.Provider}}.box",
+      "vagrantfile_template": "vagrantfile-windows_2012_r2.template"
+    }
+  ],
+  "variables": {
+	"source_path": "./output-virtualbox-iso/packer-virtualbox-iso-1515569410.ovf",
+    "headless": "true"
+  }
+}

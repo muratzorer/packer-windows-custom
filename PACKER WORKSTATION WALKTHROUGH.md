@@ -6,26 +6,29 @@
 
 2. Install Packer (1.1.2 & 1.1.3 Bug - https://github.com/hashicorp/packer/issues/5589 - https://github.com/hashicorp/packer/issues/5628)
 
-	`choco install packer --version 1.1.1`
+	`choco install packer --version 1.1.1 -y`
 
-3. Install VirtualBox
+3. Install VirtualBox OR Hyper-V
 
 	`choco install virtualbox`
+	`Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All`
 	
 4. Install Vagrant (Packer will output VagrantBox)
 	
-	`choco install vagrant`
-	
-5. Edit vagrant-ssh.bat (create vagrant/.ssh folder under specific user folder)
+	`choco install vagrant -y`
 
-	
-Run:
+## VirtualBox
 
-`packer build -only=virtualbox-iso "D:\GitHub Repositories\packer-windows-custom\windows_2012_r2.json"`
+### Base Image
+
+`packer build -only=virtualbox-iso "D:\GitHub Repositories\packer-windows-custom\windows_2012_r2-NoWinUpdateNoPostProcessor.json"`
+
+### Golden Image
+`packer build -only=virtualbox-iso "D:\GitHub Repositories\packer-windows-custom\windows_2012_r2-ProvisionAndOutputVagrantBox.json"`
 
 ## Possible Errors
 
-* Version 1.1.2 & 1.1.3 bug
+* Version 1.1.2 & 1.1.3 bug, downgrade to 1.1.1
 
 	```
 	==> virtualbox-iso: Downloading or copying Guest additions
